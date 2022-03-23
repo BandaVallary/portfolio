@@ -1,0 +1,287 @@
+@import url("https://fonts.googleapis.com/css2?family=Lora:wght@400;500;600;700&family=Poppins:wght@100;200;300;400&display=swap");
+/* css variable */
+.light {
+  --mainColor: #64bcf4;
+  --hoverColor: #5bacdf;
+  --backgroundColor: rgb(222, 238, 243);
+  --darkOne: #312f3a;
+  --darkTwo: #45424b;
+  --lightOne: #919191;
+  --lightTwo: #aaa;
+}
+.dark {
+  --mainColor: #64bcf4;
+  --hoverColor: #5bacdf;
+  --backgroundColor: #192e3a;
+  --darkOne: #f3f3f3;
+  --darkTwo: #ffff;
+  --lightOne: #ccc;
+  --lightTwo: #e7e3e3;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Poppins", sans-serif;
+}
+img {
+  width: 100%;
+}
+li a {
+  text-decoration: none;
+  align-items: center;
+  margin-left: 4.5rem;
+  color: var(--lightTwo);
+  display: inline-block;
+  transition: 0.3s;
+}
+li a:hover {
+  color: var(--hoverColor);
+
+  transform: scale(1.05);
+}
+.navbar li {
+  list-style: none;
+  display: flex;
+}
+.button {
+  display: inline-block;
+  color: white !important;
+  background-color: var(--mainColor);
+  border-radius: 16px;
+  text-transform: capitalize;
+  transition: 0.3s;
+  padding: 0.9rem 1.9rem;
+}
+.button:hover {
+  background-color: var(--hoverColor);
+  transform: scale(1) !important; /* to remove scary animation*/
+}
+.big-wrapper {
+  position: absolute;
+  padding: 1.7rem 0 2rem;
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: var(--backgroundColor);
+  display: flex;
+  flex-direction: column; /* this changes the justify content and align-items properties. justify content now aligns contents vertically and align-items aligns them horizontally.*/
+  justify-content: space-between;
+}
+.container {
+  position: relative;
+  max-width: 80rem;
+  width: 100%;
+  margin: 0 auto; /* here margin top and bottom are 0, while margin left and right are auto*/
+  padding: 0 3rem;
+  z-index: 10;
+}
+header .navbar {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+header {
+  position: relative;
+  z-index: 70;
+}
+.logo img {
+  max-width: 40px;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.showcase_area {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center; /*align verically the contects of each colum*/
+  justify-content: center; /*align horizontally the contects of each colum*/
+}
+.big-title {
+  font-size: 1.4rem;
+  text-transform: capitalize;
+  color: var(--darkOne);
+  line-height: 1.4;
+}
+.text {
+  color: var(--lightOne);
+  font-size: 1.1rem;
+  margin: 1.9rem 0 2.5rem;
+}
+.shape {
+  /*move 15% towards right and 25px towards bottom*/
+  transform: translate(15%, 25px);
+  width: 120%;
+}
+.toggle {
+  border: none;
+  display: inline-block;
+  background-color: var(--darkTwo);
+  color: var(--backgroundColor);
+  outline: none;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.toggle i {
+  line-height: 40px;
+}
+.big-wrapper.light .toggle i:last-child {
+  display: none;
+}
+.big-wrapper.light .toggle i:first-child {
+  display: block;
+}
+.big-wrapper.dark .toggle i:last-child {
+  display: block;
+}
+.big-wrapper.dark .toggle i:first-child {
+  display: none;
+}
+
+.toggle:hover {
+  background-color: var(--mainColor);
+}
+.overlay {
+  display: none;
+}
+/* For animations*/
+@keyframes appear {
+  0% {
+    clip-path: circle(30% at -25 -25);
+  }
+  100% {
+    clip-path: circle(150% at 0 0);
+  }
+}
+
+.copy {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100; /* allows the cloned element to be more visible than the one in play*/
+  animation: appear 1s 1 both;
+}
+
+.hamburger {
+  position: relative;
+  float: right;
+  z-index: 100;
+  width: 2rem;
+  height: 2rem;
+  background-color: var(--darkTwo);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  display: none;
+}
+.hamburger .bar {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background-color: var(--darkTwo);
+  border-radius: 3px;
+  transition: 0.5s;
+}
+.bar::before,
+.bar::after {
+  content: "";
+  position: absolute;
+  background-color: #fff;
+  width: 100%;
+  height: 100%;
+  border-radius: 3px;
+  transition: 0.5s;
+}
+.bar::before {
+  transform: translateY(-8px);
+}
+.bar::after {
+  transform: translateY(8px);
+}
+.big-wrapper.active .hamburger .bar {
+  background-color: transparent;
+}
+.big-wrapper.active .bar::before {
+  transform: translateY(0) rotate(-45deg);
+}
+.big-wrapper.active .bar::after {
+  transform: translateY(0) rotate(45deg);
+}
+
+/* making the page responsive for smaller screens */
+@media screen and (max-width: 870px) {
+  .showcase_area {
+    grid-template-columns: 1fr;
+  }
+  .shape {
+    width: 100%;
+    transform: none;
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+  }
+  .navbar {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    top: 0;
+    right: 0;
+    max-width: 450px;
+    width: 100%;
+    height: 100%;
+    background-color: var(--mainColor);
+    z-index: 95;
+
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 50px 2px rgba(0, 0, 0, 0.4);
+    transform: translateX(100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.5s;
+  }
+  .navbar li {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transform: none;
+  }
+  .navbar a {
+    color: #fff;
+    margin-left: 0;
+    padding: 2rem 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar .button {
+    background: none;
+  }
+  .overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    /* background-color: rgb(0, 0, 0, 7); */
+    transition: 0.5s;
+  }
+  .big-wrapper.active .navbar {
+    transform: translateX(0);
+    box-shadow: 0 0 50px 2px rgba(0, 0, 0, 0.4);
+  }
+  .big-wrapper.active .overlay {
+    pointer-events: all;
+    opacity: 1;
+  }
+}
